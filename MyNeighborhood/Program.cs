@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyNeighborhood.Core.Constants;
-using MyNeighborhood.Data;
+using MyNeighborhood.Extensions;
+using MyNeighborhood.Infrastructure.Data;
 using MyNeighborhood.ModelBinders;
 
 
@@ -22,6 +23,8 @@ builder.Services.AddControllersWithViews()
         options.ModelBinderProviders.Insert(1, new DateTimeModelBinderProvider(FormattingConstants.NormalDateFormat));
         options.ModelBinderProviders.Insert(2, new DoubleModelBinderProvider());
     });
+
+//builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 
