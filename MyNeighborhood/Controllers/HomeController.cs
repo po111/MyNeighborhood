@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace MyNeighborhood.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -16,7 +16,7 @@ namespace MyNeighborhood.Controllers
 
         public IActionResult Index()
         {
-            ViewData[MessageConstant.SuccessMessage] = "Урра, успя нещо да тръгне!!!";
+            ViewData[MessageConstant.SuccessMessage] = "Урра,нещо тръгна!!!";
 
             return View();
         }
