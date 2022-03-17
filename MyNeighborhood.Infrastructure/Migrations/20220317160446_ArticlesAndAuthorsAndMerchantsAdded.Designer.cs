@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyNeighborhood.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using MyNeighborhood.Infrastructure.Data;
 namespace MyNeighborhood.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220317160446_ArticlesAndAuthorsAndMerchantsAdded")]
+    partial class ArticlesAndAuthorsAndMerchantsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -276,30 +278,6 @@ namespace MyNeighborhood.Infrastructure.Data.Migrations
                     b.ToTable("Authors");
                 });
 
-            modelBuilder.Entity("MyNeighborhood.Infrastructure.Data.Comment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ArticleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ArticleId");
-
-                    b.ToTable("Comment");
-                });
-
             modelBuilder.Entity("MyNeighborhood.Infrastructure.Data.Merchant", b =>
                 {
                     b.Property<Guid>("Id")
@@ -391,22 +369,6 @@ namespace MyNeighborhood.Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Author");
-                });
-
-            modelBuilder.Entity("MyNeighborhood.Infrastructure.Data.Comment", b =>
-                {
-                    b.HasOne("MyNeighborhood.Infrastructure.Data.Article", "Article")
-                        .WithMany("Comments")
-                        .HasForeignKey("ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Article");
-                });
-
-            modelBuilder.Entity("MyNeighborhood.Infrastructure.Data.Article", b =>
-                {
-                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("MyNeighborhood.Infrastructure.Data.Author", b =>
