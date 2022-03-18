@@ -1,4 +1,7 @@
-﻿namespace MyNeighborhood.Extensions
+﻿using Microsoft.EntityFrameworkCore;
+using MyNeighborhood.Infrastructure.Data;
+
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtension
     {
@@ -9,6 +12,17 @@
 
         //    return services;
         //}
+
+        public static IServiceCollection AddAplicationDbContexts(this IServiceCollection services, IConfiguration config)
+        {
+            var connectionString = config.GetConnectionString("DefaultConnection");
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(connectionString));
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
+            return services;
+
+        }
 
     }
 }

@@ -19,7 +19,7 @@ namespace MyNeighborhood.Infrastructure.Data
 
         [Required]
         [Column(TypeName = "date")]
-        public DateTime Date { get; set; } = DateTime.Today;
+        public DateTime DateCreated { get; set; } = DateTime.Today;
 
         public IList<Article> Articles { get; set; } = new List<Article>();
 
