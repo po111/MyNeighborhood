@@ -16,7 +16,7 @@ namespace MyNeighborhood.Controllers
 
         public IActionResult Index()
         {
-            ViewData[MessageConstant.SuccessMessage] = "Урра,нещо тръгна!!!";
+            //ViewData[MessageConstant.SuccessMessage] = "Урра,нещо тръгна!!!";
 
             return View();
         }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using MyNeighborhood.Core.Constants;
 using MyNeighborhood.Infrastructure.Data;
+using MyNeighborhood.Infrastructure.Data.Identity;
 using MyNeighborhood.ModelBinders;
 
 
@@ -10,8 +11,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAplicationDbContexts(builder.Configuration);
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+})
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+    
 builder.Services.AddControllersWithViews()
     .AddMvcOptions(options =>
     {
@@ -20,7 +26,7 @@ builder.Services.AddControllersWithViews()
         options.ModelBinderProviders.Insert(2, new DoubleModelBinderProvider());
     });
 
-//builder.Services.AddApplicationServices();  - repository? not seen
+builder.Services.AddApplicationServices();  
 
 var app = builder.Build();
 
@@ -46,6 +52,10 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "Area",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

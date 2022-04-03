@@ -27,7 +27,7 @@ namespace MyNeighborhood.Infrastructure.Data
         public string Text { get; set; }
 
 
-        public string Picture { get; set; }
+        public string? Picture { get; set; }
 
 
         [Required]
@@ -38,7 +38,7 @@ namespace MyNeighborhood.Infrastructure.Data
         public Author Author { get; set; }
 
         [Required]
-        public IList<Comment> Comments { get; set; }
+        public IList<Comment> Comments { get; set; } = new List<Comment>();//добавено на моя глава
 
 
     }
